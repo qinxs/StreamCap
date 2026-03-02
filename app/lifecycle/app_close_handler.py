@@ -161,7 +161,9 @@ async def handle_app_close(page: ft.Page, app, save_progress_overlay) -> None:
         shape=ft.RoundedRectangleBorder(radius=10),
     )
 
-    close_confirm_dialog.open = True
-    app.dialog_area.content = close_confirm_dialog
-    app.close_confirm_dialog = close_confirm_dialog
-    page.update()
+    # close_confirm_dialog.open = True
+    # app.dialog_area.content = close_confirm_dialog
+    # app.close_confirm_dialog = close_confirm_dialog
+    # page.update()
+    # 不显示对话框，直接执行关闭逻辑
+    await close_dialog_dismissed(None)
