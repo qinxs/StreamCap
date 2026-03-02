@@ -56,6 +56,9 @@ cd StreamCap
 2.**Install Dependencies**:
 
 ```bash
+# Recommended to use a virtual environment
+python -m venv .venv
+
 # Install core dependencies
 pip install -i https://pypi.org/simple streamget 
 
@@ -93,6 +96,20 @@ python main.py --web
 After successful startup, access it via `http://127.0.0.1:6006`.For more configuration details, refer to the [Web Operation Guide](https://github.com/ihmily/StreamCap/wiki/Installation-Guide#web-operation)
 
 If the program prompts that FFmpeg is missing, please visit the FFmpeg official download page [Download FFmpeg](https://ffmpeg.org/download.html) to download the precompiled FFmpeg executable files and configure the environment variables.
+
+### 3. Packaging exe
+
+```bash
+# Install pyinstaller in the virtual environment
+pip install pyinstaller
+
+pyinstaller --clean -y StreamCap.spec
+```
+
+> 1. Use `where pyinstaller` to ensure pyinstaller is in the virtual environment.   
+  If not, run the pyinstaller installation command again in the virtual environment,  
+  otherwise missing modules may be reported after packaging.
+> 2. Manually copy assets, locales, and some config files over
 
 ## 🐋Docker Running
 

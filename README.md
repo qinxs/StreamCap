@@ -57,6 +57,9 @@ cd StreamCap
 2.**安装依赖**：
 
 ```bash
+# 推荐使用虚拟环境
+python -m venv .venv
+
 # 安装核心依赖
 pip install -i https://pypi.org/simple streamget 
 
@@ -94,6 +97,20 @@ python main.py --web
 启动成功后，通过 `http://127.0.0.1:6006` 访问。更多配置请参考 [Web运行指南](https://github.com/ihmily/StreamCap/wiki/安装指南#web-端运行)
 
 如果程序提示缺少 FFmpeg，请访问 FFmpeg 官方下载页面[Download FFmpeg](https://ffmpeg.org/download.html)，下载预编译的 FFmpeg 可执行文件，并配置环境变量。
+
+### 3.打包exe
+
+```bash
+# 虚拟环境下安装 pyinstaller
+pip install pyinstaller
+
+pyinstaller --clean -y StreamCap.spec
+```
+
+> 1. 使用 `where pyinstaller` 确保 pyinstaller 在虚拟环境中  
+  如果不是 虚拟环境下再次执行安装 pyinstaller 命令  
+  否则打包后提示缺少模块
+> 2. assets、locales、部分config文件 手动复制过去
 
 ## 🐋容器运行
 
