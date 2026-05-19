@@ -88,13 +88,6 @@ class RecordingCardManager:
             on_click=lambda e, rec=recording: self.app.page.run_task(self.monitor_button_on_click, e, rec),
         )
 
-        delete_button = ft.IconButton(
-            icon=ft.Icons.DELETE,
-            icon_color=ft.Colors.PRIMARY,
-            tooltip=self._["delete_monitor"],
-            on_click=lambda e, rec=recording: self.app.page.run_task(self.recording_delete_button_click, e, rec),
-        )
-
         display_title = RecordingCardState.get_display_title(recording, self._)
         display_title_label = ft.Text(
             display_title,
@@ -113,12 +106,26 @@ class RecordingCardManager:
             tooltip=self._["open_folder"],
             on_click=lambda e, rec=recording: self.app.page.run_task(self.recording_dir_button_on_click, e, rec),
         )
-        recording_info_button = ft.IconButton(
-            icon=ft.Icons.INFO,
+
+        more_actions_button = ft.PopupMenuButton(
+            icon=ft.Icons.MENU,
             icon_color=ft.Colors.PRIMARY,
-            tooltip=self._["recording_info"],
-            on_click=lambda e, rec=recording: self.app.page.run_task(self.recording_info_button_on_click, e, rec),
+            tooltip="",
+            items=[
+                ft.PopupMenuItem(
+                    content=ft.Text(self._["recording_info"]),
+                    icon=ft.Icon(ft.Icons.INFO, color=ft.Colors.PRIMARY),
+                    on_click=lambda e, rec=recording: self.app.page.run_task(self.recording_info_button_on_click, e, rec),
+                ),
+                # ft.PopupMenuItem(),
+                ft.PopupMenuItem(
+                    content=ft.Text(self._["delete_monitor"]),
+                    icon=ft.Icon(ft.Icons.DELETE, color=ft.Colors.PRIMARY),
+                    on_click=lambda e, rec=recording: self.app.page.run_task(self.recording_delete_button_click, e, rec),
+                ),
+            ]
         )
+
         speed_text_label = ft.Text(speed, size=12)
 
         status_label = self.create_status_label(recording)
@@ -140,11 +147,10 @@ class RecordingCardManager:
                         [
                             record_button,
                             open_folder_button,
-                            recording_info_button,
                             open_live_room_button,
                             preview_button,
                             edit_button,
-                            delete_button,
+                            more_actions_button,
                             monitor_button,
                         ],
                         spacing=3,
@@ -170,8 +176,8 @@ class RecordingCardManager:
             "speed_label": speed_text_label,
             "record_button": record_button,
             "open_folder_button": open_folder_button,
-            "recording_info_button": recording_info_button,
             "edit_button": edit_button,
+            "more_actions_button": more_actions_button,
             "monitor_button": monitor_button,
             "status_label": status_label,
         }
