@@ -67,6 +67,13 @@ class RecordingCardManager:
             on_click=lambda e, rec=recording: self.app.page.run_task(self.edit_recording_button_click, e, rec),
         )
 
+        open_live_room_button = ft.IconButton(
+            icon=ft.Icons.CAMERA_SHARP,
+            icon_color=ft.Colors.PRIMARY,
+            tooltip=self._["open_live_room_page"],
+            on_click=lambda e, rec=recording: self.app.page.run_task(self.open_live_room_page_button_on_click, e, rec),
+        )
+
         preview_button = ft.IconButton(
             icon=ft.Icons.VIDEO_LIBRARY,
             icon_color=ft.Colors.PRIMARY,
@@ -134,6 +141,7 @@ class RecordingCardManager:
                             record_button,
                             open_folder_button,
                             recording_info_button,
+                            open_live_room_button,
                             preview_button,
                             edit_button,
                             delete_button,
@@ -491,6 +499,9 @@ class RecordingCardManager:
             logger.debug(f"Show delete dialog failed: {e}")
         except Exception as e:
             logger.debug(f"Show delete dialog failed: {e}")
+
+    async def open_live_room_page_button_on_click(self, _, recording: Recording):
+        await self.app.page.launch_url(recording.url)
 
     async def preview_video_button_on_click(self, _, recording: Recording):
         if self.app.page.web and recording.record_url:
