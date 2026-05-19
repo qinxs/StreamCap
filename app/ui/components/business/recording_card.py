@@ -1,4 +1,7 @@
 import asyncio
+import os
+import sys
+import subprocess
 import os.path
 
 import flet as ft
@@ -519,7 +522,19 @@ class RecordingCardManager:
             if video_files:
                 video_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
                 latest_video = video_files[0]
-                await StoragePage(self.app).preview_file(latest_video, recording.url)
+                # 使用系统默认播放器打开视频
+                try:
+                    # Windows
+                    if os.name == 'nt':
+                        os.startfile(latest_video)
+                    # macOS
+                    elif sys.platform == 'darwin':
+                        subprocess.call(('open', latest_video))
+                    # Linux/Unix
+                    else:
+                        subprocess.call(('xdg-open', latest_video))
+                except Exception as e:
+                    await StoragePage(self.app).preview_file(latest_video, recording.url)
             else:
                 await self.app.snack_bar.show_snack_bar(self._["no_video_file"])
         else:
