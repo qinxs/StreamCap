@@ -264,7 +264,7 @@ class RecordingCardManager:
                 }
             )
             self.app.record_manager.stop_recording(recording, manually_stopped=True)
-            self.app.page.run_task(self.app.snack_bar.show_snack_bar, self._["stop_monitor_tip"])
+            # self.app.page.run_task(self.app.snack_bar.show_snack_bar, self._["stop_monitor_tip"])
         else:
             recording.update(
                 {
@@ -275,7 +275,7 @@ class RecordingCardManager:
                 }
             )
             self.app.page.run_task(self.app.record_manager.check_if_live, recording)
-            self.app.page.run_task(self.app.snack_bar.show_snack_bar, self._["start_monitor_tip"], ft.Colors.GREEN)
+            # self.app.page.run_task(self.app.snack_bar.show_snack_bar, self._["start_monitor_tip"], ft.Colors.GREEN)
 
         await self.update_card(recording)
         self.app.page.pubsub.send_others_on_topic("update", recording)
