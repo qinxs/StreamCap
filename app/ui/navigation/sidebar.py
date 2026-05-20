@@ -22,7 +22,7 @@ class NavigationItem(ft.Container):
         self.icon = destination.icon
         self.text = destination.label
         self.content = ft.Row(
-            [ft.Icon(destination.icon, color=ft.Colors.PRIMARY), ft.Text(destination.label, color=ft.Colors.PRIMARY)]
+            [ft.Icon(destination.icon, color=ft.Colors.PRIMARY), ft.Text(destination.label)]
         )
         self.on_click = lambda e: item_clicked(e)
 
@@ -81,7 +81,7 @@ class LeftNavigationMenu(ft.Column):
         self.rail = NavigationColumn(sidebar=self.sidebar, page=self.flet_page, app=self.app)
 
         if self.flet_page.theme_mode == ft.ThemeMode.DARK:
-            self.dark_light_text = ft.Text(self._["dark_theme"], color=ft.Colors.PRIMARY)
+            self.dark_light_text = ft.Text(self._["dark_theme"])
             self.dark_light_icon = ft.IconButton(
                 icon=ft.Icons.BRIGHTNESS_HIGH_OUTLINED,
                 tooltip=self._["toggle_day_theme"],
@@ -89,7 +89,7 @@ class LeftNavigationMenu(ft.Column):
                 icon_color=ft.Colors.PRIMARY,
             )
         else:
-            self.dark_light_text = ft.Text(self._["light_theme"], color=ft.Colors.PRIMARY)
+            self.dark_light_text = ft.Text(self._["light_theme"])
             self.dark_light_icon = ft.IconButton(
                 icon=ft.Icons.BRIGHTNESS_2_OUTLINED,
                 tooltip=self._["toggle_night_theme"],
@@ -131,7 +131,7 @@ class LeftNavigationMenu(ft.Column):
                             tooltip=self._["colors"],
                             items=[PopupColorItem(color=color, name=name) for color, name in colors_list],
                         ),
-                        ft.Text(self._["theme_color"], color=ft.Colors.PRIMARY),
+                        ft.Text(self._["theme_color"]),
                     ],
                     alignment=ft.MainAxisAlignment.START,
                 ),
